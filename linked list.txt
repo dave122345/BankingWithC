@@ -1,0 +1,413 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct NodeT_
+{
+	int data;
+	char name[30];
+	struct NodeT_* NEXT;
+}node;
+
+void addElementAttheEnd(node* top);
+void addElementAttheStart(node** top);
+void display(node* top);
+void search(node* top);
+int location(node* top, int searchNum);
+int length(node* top);
+void deleteAtEnd(node* top);
+void deleteAtStart(node** top);
+void deleteintheMiddle(node* top, int search);
+void deletedAtLocation(node* top, int loc);
+void updateNodeValues(node* top, char ID[]);
+
+void main()
+{
+	node* HEAD = NULL;
+	node* temp;
+	node* temp2;
+	int option;
+	int searchNum;
+	int result;
+	char searchTerm[20];
+	int foundLocation;
+
+	//1st Node
+	/*temp = (node*)malloc(sizeof(node));
+	printf("Please enter the value for the node\n");
+	scanf("%d", &temp->data);
+	temp->NEXT = NULL;
+	HEAD = temp;
+	*/
+
+	/*addElementAttheStart(&HEAD);
+	addElementAttheEnd(HEAD);
+	addElementAttheEnd(HEAD);
+	addElementAttheEnd(HEAD);
+	addElementAttheStart(&HEAD);
+	*/
+
+	printf("Please enter 1 to add to the start of the list\n");
+	printf("Please enter 2 to add to the end of the list\n");
+	printf("Please enter 3 to display the list\n");
+	printf("Please enter 4 to delete from the start of the list\n");
+	printf("Please enter 5 to delete from the end of the list\n");
+	printf("Please enter 6 to delete a certain node in the start or the middle\n");
+	printf("Please enter 7 to display the length of the list\n");
+	printf("Please enter 8 to update a node in the list\n");
+	printf("Please enter 9 to delete by entering the integer of a node\n");
+	printf("Please enter -1 to exit and display the list\n");
+	scanf("%d", &option);
+
+	while (option != -1)
+	{
+		if (option == 1)
+			addElementAttheStart(&HEAD);
+		else if (option == 2)
+		{
+			if (HEAD == NULL)
+				addElementAttheStart(&HEAD);
+			else
+				addElementAttheEnd(HEAD);
+		}
+		else if (option == 3)
+		{
+			display(HEAD);
+		}
+		else if (option == 4)
+		{
+			if (HEAD == NULL)
+				printf("You can not remove from an empty list\n");
+			else
+			{
+				deleteAtStart(&HEAD);
+			}
+		}
+
+		else if (option == 5)
+		{
+			if (HEAD == NULL)
+				printf("You can not remove from an empty list\n");
+			else if (HEAD->NEXT == NULL)//Only one element in the list
+			{
+				deleteAtStart(&HEAD);
+			}
+			else
+			{
+				deleteAtEnd(HEAD);
+			}
+		}
+
+		else if (option == 6)
+		{
+			printf("Please enter the number you are searching for\n");
+			scanf("%d", &searchNum);
+
+			if (HEAD == NULL)
+				printf("You can not remove from an empty list\n");
+			else if (HEAD->data == searchNum)
+			{
+				deleteAtStart(&HEAD);
+			}
+			else
+			{
+				deleteintheMiddle(HEAD, searchNum);
+			}
+		}
+
+		else if (option == 7)
+		{
+			result = length(HEAD);
+			printf("The length of the list is %d\n", result);
+		}
+
+		else if (option == 8)
+		{
+			printf("Please enter the search ID\n");
+			scanf("%s", searchTerm);
+
+			updateNodeValues(HEAD, searchTerm);
+		}
+
+		else if (option == 9)
+		{
+			if (HEAD == NULL)
+			{
+				printf("The list is empty so this option can not be completed\n");
+			}
+			else
+			{
+				printf("Please enter the number being searched for\n");
+				scanf("%d", &searchNum);
+				foundLocation = location(HEAD, searchNum);
+
+				printf("The location is %d\n", foundLocation);
+
+
+				if (foundLocation < 0)
+					printf("This value is not in the list\n");
+				else if (foundLocation == 1)
+					deleteAtStart(&HEAD);
+				else if (foundLocation == length(HEAD))
+					deleteAtEnd(HEAD);
+				else
+					deletedAtLocation(HEAD, foundLocation);
+
+			}
+
+		}
+
+		printf("Please enter 1 to add to the start of the list\n");
+		printf("Please enter 2 to add to the end of the list\n");
+		printf("Please enter 3 to display the list\n");
+		printf("Please enter 4 to delete from the start of the list\n");
+		printf("Please enter 5 to delete from the end of the list\n");
+		printf("Please enter 6 to delete a certain node\n");
+		printf("Please enter 7 to display the length of the list\n");
+		printf("Please enter 8 to update a node in the list\n");
+		printf("Please enter 9 to delete by entering the integer of a node\n");
+		printf("Please enter -1 to exit and display the list\n");
+		scanf("%d", &option);
+	}
+
+	//Display the list
+	temp2 = HEAD;
+	while (temp2 != NULL)
+	{
+		printf("The list element is %d %s\n", temp2->data, temp2->name);
+
+		temp2 = temp2->NEXT;
+	}
+
+
+}
+
+void addElementAttheEnd(node* top)
+{
+	node* temp;
+	node* temp2;
+
+	//Creating the new node
+	temp = (node*)malloc(sizeof(node));
+	printf("Please enter the value for the node\n");
+	scanf("%d", &temp->data);
+	printf("Please enter the name for the node\n");
+	scanf("%s", temp->name);
+	temp->NEXT = NULL;
+
+	//Finding the last node
+	temp2 = top;
+	while (temp2->NEXT != NULL)
+	{
+		temp2 = temp2->NEXT;
+	}
+
+	temp2->NEXT = temp;
+}
+
+void addElementAttheStart(node** top)
+{
+	node* temp;
+
+	//Creating the new node
+	temp = (node*)malloc(sizeof(node));
+	printf("Please enter the value for the node\n");
+	scanf("%d", &temp->data);
+	printf("Please enter the name for the node\n");
+	scanf("%s", temp->name);
+
+	temp->NEXT = *top; //*top currently has the address of the first node 
+	//in the list which become the second node when temp is added infront of it
+	*top = temp;
+}
+
+void display(node* top)
+{
+	node* temp;
+	if (top == NULL)
+		printf("The list is empty\n");
+	else
+	{
+		temp = top;
+
+		while (temp != NULL)
+		{
+			//Display payload data
+			//Move to the next node
+			printf("%d %s\n", temp->data, temp->name);
+			temp = temp->NEXT;
+		}
+	}
+}
+
+void search(node* top)
+{
+	node* temp;
+	char nameSearch[20];
+
+	printf("Please enter you search term\n");
+	scanf("%s", nameSearch);
+
+	if (top == NULL)
+		printf("The list is empty\n");
+	else
+	{
+		temp = top;
+
+		while (temp != NULL)
+		{
+			//Display payload data
+			//Move to the next node
+			if (strcmp(temp->name, nameSearch) == 0)
+			{
+				printf("Found the element");
+			}
+
+			temp = temp->NEXT;
+		}
+	}
+}
+int length(node* top)
+{
+	node* temp;
+	int length = 0;
+
+	if (top == NULL)
+		return 0;
+
+	else
+	{
+		temp = top;
+
+		while (temp != NULL)
+		{
+			//Display payload data
+			//Move to the next node
+			length++;
+			temp = temp->NEXT;
+		}
+
+	}
+
+	return length;
+}
+
+void deleteAtEnd(node* top)
+{
+	node* last;
+	node* secondlast;
+
+	last = top;
+
+	while (last->NEXT != NULL)
+	{
+		secondlast = last;
+		last = last->NEXT;
+	}
+
+	secondlast->NEXT = NULL;
+	free(last);
+}
+void deleteAtStart(node** top)
+{
+	node* temp;
+
+	temp = *top;
+	*top = temp->NEXT;
+	free(temp);
+
+}
+void deleteintheMiddle(node* top, int search)
+{
+	node* last;
+	node* secondlast;
+	int searchNumber;
+	int removed = 0;
+
+	last = top;
+
+
+
+	while (last->NEXT != NULL)
+	{
+		if (last->data == search)
+		{
+			//This is the node to remove...
+			secondlast->NEXT = last->NEXT;
+			free(last);
+			removed = 1;
+			break;
+		}
+
+		secondlast = last;
+		last = last->NEXT;
+	}
+
+	if (removed == 0)
+	{
+		printf("The node could not be found\n");
+	}
+}
+
+void updateNodeValues(node* top, char ID[])
+{
+	node* temp;
+	int search = 0;
+	temp = top;
+
+	while (temp != NULL)
+	{
+		if (strcmp(temp->name, ID) == 0)
+		{
+			printf("Please enter a new integer and string for the ID\n");
+			scanf("%d %s", &temp->data, temp->name);
+			search = 1;
+			break;
+		}
+	}
+
+	if (search == 0)
+		printf("The value of the ID was never found\n");
+}
+
+int location(node* top, int searchNum)
+{
+	node* temp;
+	int location = -1;
+	int i = 1;
+
+	temp = top;
+
+	while (temp != NULL)
+	{
+		if (temp->data == searchNum)
+		{
+			location = i;
+			break;
+		}
+		i++;
+		temp = temp->NEXT;
+	}
+
+	return location;
+}
+
+void deletedAtLocation(node* top, int loc)
+{
+	node* temp;
+	node* prevTemp;
+	int i;
+
+	temp = top;
+
+	for (i = 0; i < loc - 1; i++)
+	{
+		prevTemp = temp;
+		temp = temp->NEXT;
+	}
+
+	printf("The value of temp is %d\n", temp->data);
+	prevTemp->NEXT = temp->NEXT;
+	free(temp);
+
+}
