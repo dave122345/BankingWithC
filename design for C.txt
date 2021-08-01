@@ -1,0 +1,75 @@
+Login screen or menu
+ - enter user name (validation)
+ - enter password (validation?)
+ - password checking
+ - password not visible
+ - display relevant messages to user
+ - data: list of users
+ 
+User menu:
+ - Add new account
+   - Enter all fields (validate)
+ - data: list of account
+ - Display all accounts balance < 100
+ - Display account holder details
+   - Find account 
+   - By id, by name (validation)
+ - Lodge to account (also uses find account)
+ - Withdraw from account (also uses find account)
+ - Delete account (also uses find account)
+ - Statistics
+ - Print all account to a report
+   - account formatting function
+   
+data: list of users
+data: list of accounts
+
+
+* menus
+* file_io
+* string_manipulation
+* validation
+* linked_list
+
+
+
+
+next steps:
+
+- log in page & function (good)
+- file for users/accounts (good)
+- read and write to files where its needed. (parts done probably will come again) 
+- struct for users for log in purposes, etc. (view last note)
+
+
+sudo code:
+
+while(attempt to log in = true) {
+
+	ask for username
+	
+	for (looks through users array){
+		if username matches {
+			
+				move on to passowrd
+				
+					
+	ask for Password
+		
+		
+		if Password matches {
+			
+				move on to user menu
+			
+		}
+
+
+			
+		}
+		
+	}
+
+
+	
+
+}
