@@ -177,7 +177,7 @@ void main()
 	//start
 
 	load_users("Users.txt", userList);
-	load_accountFile("Accounts.txt", accountList);
+	//load_accountFile("Accounts.txt", accountList);
 
 
 	//free(user2);
@@ -240,27 +240,53 @@ void main()
 
 	}
 
-	
+	//menu
+	while (choice != -1) {
+		printf("Welcome to your menu\n");
+		printf("1. add account \n2. display all accounts with a balance less than 100\n3. display account holder details\n4. make a lodgement\n5. withdraw money from account\n6. Delete\n7. genereate stats\n8. print account account holders into a report file\n or enter -1 to exit\n");
+		scanf("%d", &choice);
+				
+				
+				if (choice == 1)
+				{
 
-	if (choice == 1)
-	{
+				}
+				else if (choice == 2)
+				{
+
+				}
+				else if (choice == 3)
+				{
+					
+
+				}
+				if (choice == 4)
+				{
+
+				}
+				else if (choice == 5)
+				{
+
+				}
+				else if (choice == 6)
+				{
+
+				}
+				else if (choice == 7)
+				{
+
+				}
+				else if (choice == 8)
+				{
+
+				}
+				else if (choice == -1)//exit
+				{
+					printf("Goodbye.\n");
+					exit(0);
+				}
 
 	}
-	else if (choice == 2)
-	{
-
-	}
-	else if (choice == 3)
-	{
-
-	}
-	else if (choice == -1)//exit
-	{
-		printf("Goodbye.\n");
-		exit(0);
-	}
-
-
 
 
 

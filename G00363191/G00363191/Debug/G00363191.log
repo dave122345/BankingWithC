@@ -3,8 +3,6 @@ C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(40,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(153,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(148,1): warning C4047: 'initializing': 'Account *' differs in levels of indirection from 'Account **'
-C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(180,46): warning C4047: 'function': 'Account **' differs in levels of indirection from 'Account *'
-C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(180,35): warning C4024: 'load_accountFile': different types for formal and actual parameter 2
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(97): warning C4716: 'load_users': must return a value
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(159): warning C4716: 'load_accountFile': must return a value
   G00363191.vcxproj -> C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\Debug\G00363191.exe
