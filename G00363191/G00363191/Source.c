@@ -12,6 +12,7 @@ typedef struct {
 	float Balance;
 	char Email[30];
 	char rating[30];
+	struct Account* NEXT;
 }Account;
 
 typedef struct {
@@ -20,6 +21,26 @@ typedef struct {
 	char Password[30];
 
 }Users;
+
+void addAccountItem(Account** first, Account* account)
+{
+	if (*first == NULL)
+	{
+		*first = account;
+		return;
+	}
+
+	// Finding the last node
+	Account* current = *first;
+	while (current->NEXT != NULL)
+	{
+		current = current->NEXT;
+	}
+
+	current->NEXT = account;
+
+
+}
 
 
 
@@ -45,25 +66,52 @@ void print_account(Account* account)
 }
 
 
-void load_user(Users* users)
+int load_users(char* filename, Users** p_userList)
 {
 
 
+	char username[30];
+	char password[30];
+	FILE* f = fopen(filename, "r");
 
-	printf("\n");
+	//printf("File open\n");
+
+
+
+
+	int i = 0;
+	while (fscanf(f, "%s %s", username, password) == 2) {
+
+		Users* users = malloc(sizeof(Users));
+		strncpy(users->Username, username, 30);
+		strncpy(users->Password, password, 30);
+		printf("%s %s\n", users->Username, users->Password);
+
+		p_userList[i] = users;
+		i++;
+	}
+
+	fclose(f);
+	//printf("file closed \n");
 
 }
 
 
-void main()
+int load_accountFile(char* filename, Account** p_accountList)
 {
-	//variables
-	int choice = 0;
-	char user_attempt[30];
-	char pass_attempt[30];
-	char username[30];
-	char password[30];
-	Account* account = malloc(sizeof(Account));
+
+	int Accountnum;
+	char fName[30];
+	char lName[30];
+	char address[30];
+	float balance;
+	char email[30];
+	char ratings[30];
+	Account* accountlist = NULL;
+	FILE* f = fopen(filename, "r");
+
+	//printf("File open\n");
+
 
 	/*account->accountNum = 000001;
 	strcpy(account->Fname, "Ben");
@@ -75,48 +123,75 @@ void main()
 
 	//print_account(account);
 
+	int i = 0;
+	while (fscanf(f, "%d %s %s %s %f %s %s", &Accountnum, fName, lName, address, &balance, email, ratings) == 7) {
+
+		Account* account = malloc(sizeof(Account));
+		account->accountNum = Accountnum;
+		strncpy(account->Fname, fName, 30);
+		strncpy(account->Lname, lName, 30);
+		strncpy(account->Address, address, 30);
+		account->Balance = balance;
+		strncpy(account->Email, email, 30);
+		strncpy(account->rating, ratings, 30);
+
+		print_account(account);
+
+		addAccountItem(&accountlist, account);
+
+	}
+	fclose(f);
+
+	printf("Print contents of list");
+
+	//Display the list
+	Account* current = p_accountList;
+	while (current != NULL)
+	{
+		print_account(current);
+
+		current = current->NEXT;
+	}
+
+
+	//printf("file closed \n");
+
+}
+
+
+
+
+void main()
+{
+	//variables
+	int choice = 0;
+	char user_attempt[30];
+	char pass_attempt[30];
+	int i = 0;
+	Users* userList[3];
+	Account* account = malloc(sizeof(Account));
+	Account* accountList = NULL;
+
 	free(account);
 
 	//start
 
-	FILE* f = fopen("Users.txt", "r");
-
-	//printf("File open\n");
-
-	Users* userList[3];
-
-
-	int i = 0;
-	while (fscanf(f, "%s %s", username, password) == 2) {
-
-		Users* users = malloc(sizeof(Users));
-		strncpy(users->Username, username, 30);
-		strncpy(users->Password, password, 30);
-		printf("%s %s\n", users->Username, users->Password);
-
-		userList[i] = users;
-		i++;
-
-
-
-
-	}
-
-	fclose(f);
-	//printf("file closed \n");
+	load_users("Users.txt", userList);
+	load_accountFile("Accounts.txt", accountList);
 
 
 	//free(user2);
 
 
 	int a = 1;
-	int u = 0;
+
+	
 
 	printf("Welcome please enter username and password to log in \n");
 
 
 	while (a == 1) {
-
+		int u = 0;
 		printf("Please enter your username:\n");
 		scanf("%s", user_attempt);
 
@@ -138,7 +213,7 @@ void main()
 
 				if (strcmp(pass_attempt, userList[i]->Password) == 0) {
 
-					
+
 					a = 0;
 					break;
 
@@ -158,13 +233,14 @@ void main()
 		}
 		if (u == 0) {
 			printf("incorrect details try again\n");
-			
+
 		}
 
 
 
 	}
 
+	
 
 	if (choice == 1)
 	{
