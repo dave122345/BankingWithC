@@ -137,7 +137,7 @@ int load_accountFile(char* filename, Account** p_accountList)
 
 }
 
-//find acount
+//find account
 Account* find_account(Account* accountList) {
 
 	//vars
@@ -207,13 +207,13 @@ Account* find_account(Account* accountList) {
 //lodgement 
 void lodge_to_account(Account* account)
 {
-	
+
 	if (account == NULL)
 	{
 		return;
 	}
 
-	
+
 	//vars
 	float lodgement;
 	float oldBalance = account->Balance;
@@ -221,19 +221,19 @@ void lodge_to_account(Account* account)
 
 	printf("How much do you want to lodge:\n");
 	scanf("%f", &lodgement);
-	
+
 	newBalance = lodgement + oldBalance;
-	
+
 	printf("Your old balance was: %.2f\n", oldBalance);
 	printf("Your new balance is: %.2f\n", newBalance);
 
 	account->Balance = newBalance;
-	
-	
+
+
 	print_account(account);
-	
-	
-	
+
+
+
 
 }
 
@@ -253,7 +253,7 @@ void withdraw_from_account(Account* account)
 	printf("How much do you want to withdraw:\n");
 	scanf("%f", &withdraw);
 
-	newBalance = oldBalance -withdraw;
+	newBalance = oldBalance - withdraw;
 
 	printf("Your old balance was: %.2f\n", oldBalance);
 	printf("Your new balance is: %.2f\n", newBalance);
@@ -263,6 +263,89 @@ void withdraw_from_account(Account* account)
 
 	print_account(account);
 
+}
+
+//delete function
+void removeAccount(Account** first, char* accountNum)
+{
+	if (*first == NULL)
+	{
+		return;
+	}
+
+	// Check if first element is to be removed
+
+	Account* current = *first;
+
+	if (strcmp(current->accountNum, accountNum) == 0)
+	{
+		printf("Found account (first element)\n");
+		// Remove first element - set *first to next (second) node
+		*first = current->NEXT;
+
+		// Free the memory for the removed node
+		free(current);
+		return;
+	}
+
+	// Not the first element, so begin searching
+	Account* prev = NULL;
+
+	do
+	{
+
+		prev = current;
+		current = current->NEXT;
+
+
+		if (strcmp(current->accountNum, accountNum) == 0)
+		{
+			printf("Found account %s\n", accountNum);
+			// Stitch previous and next elements together
+			// Note: This also works if current is the last element
+
+			prev->NEXT = current->NEXT;
+
+			// Free the memory for the removed node
+			free(current);
+			return;
+		}
+
+		
+	} while (current->NEXT != NULL);
+}
+
+//showing accounts
+void showAccounts(Account* accountList)
+{
+	Account* current = accountList;
+
+	while (current != NULL)
+	{
+		print_account(current);
+
+		current = current->NEXT;
+	}
+
+}
+
+//saving to file
+void saveToFile(char* filename, Account* accountList)
+{
+	Account* current = accountList;
+
+	FILE* f = fopen(filename, "w");
+
+	while (current != NULL)
+	{
+		//saving file
+		fprintf(f, "%s %s %s %s %f %s %s\n", current->accountNum, current->Fname, current->Lname, current->Address, current ->Balance, current->Email, current->rating);
+
+		current = current->NEXT;
+	}
+	
+	//clsoing file
+	fclose(f);
 }
 
 
@@ -371,6 +454,8 @@ void main()
 		else if (choice == 2)
 		{
 			//display all account with balance < 100
+			showAccounts(accountList);
+
 		}
 		else if (choice == 3)
 		{
@@ -394,6 +479,9 @@ void main()
 		else if (choice == 6)
 		{
 			//delete account
+
+			Account* account = find_account(accountList);
+			removeAccount(&accountList, account->accountNum);
 		}
 		else if (choice == 7)
 		{
@@ -405,7 +493,27 @@ void main()
 		}
 		else if (choice == -1)//exit
 		{
+			
+			saveToFile("Bank.txt", accountList);
+
+			//clean up users
+			for (i = 0; i < 3; i++) {
+				if (userList[i] != NULL) {
+					free(userList[i]);
+				}
+			}
+
+			Account* current = accountList;
+
+			while (current != NULL)
+			{
+				Account* temp = current;
+
+				current = current->NEXT;
+				free(temp);
+			}
 			printf("Goodbye.\n");
+			
 			exit(0);
 		}
 
@@ -413,13 +521,7 @@ void main()
 
 
 
-	//clean up users
-	for (i = 0; i < 3; i++) {
-		if (userList[i] != NULL) {
-			free(userList[i]);
-		}
-	}
-
+	
 
 
 }//End of main

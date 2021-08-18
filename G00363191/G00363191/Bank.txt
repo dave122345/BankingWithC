@@ -1,5 +1,2 @@
-001 Ben O'Connor Galway 100.00 Ben@gmail.com Good
-002 David Burke Dublin 1000.00 David.Burke@gmail.com Good	
-003 Shane Ryan Cork 300.00 Shane123@gmail.com Good
-004 John Smyth Mayo 500.00 John@gmail.com Good
-005 Sam Riley Kildare 50.00 Riley@gmail.com Good
+002 David Burke Dublin 1000.000000 David.Burke@gmail.com Good
+004 John Smyth Mayo 500.000000 John@gmail.com Good

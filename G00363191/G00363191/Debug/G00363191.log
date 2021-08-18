@@ -3,7 +3,11 @@ C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(40,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(173,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(199,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(297,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(284,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(298,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(327,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(344,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(379,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(138): warning C4716: 'load_accountFile': must return a value
 C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\G00363191\Source.c(97): warning C4716: 'load_users': must return a value
   G00363191.vcxproj -> C:\Users\David\Desktop\Computer stuff\College\Coding\repeatC\G00363191\Debug\G00363191.exe
