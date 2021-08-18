@@ -5,7 +5,7 @@
 #include<math.h>
 
 typedef struct {
-	int accountNum;
+	char accountNum[30];
 	char Fname[30];
 	char Lname[30];
 	char Address[30];
@@ -52,12 +52,12 @@ void print_account(Account* account)
 		return;
 	}
 
-	printf("Account number: %d\n", account->accountNum);
+	printf("Account number: %s\n", account->accountNum);
 	printf("First Name: %s\n", account->Fname);
 	printf("Last Name: %s\n", account->Lname);
 	printf("Address: %s\n", account->Address);
 	printf("Email: %s\n", account->Email);
-	printf("Balance: %f\n", account->Balance);
+	printf("Balance: %.2f\n", account->Balance);
 	printf("rating: %s\n", account->rating);
 
 
@@ -100,34 +100,25 @@ int load_users(char* filename, Users** p_userList)
 int load_accountFile(char* filename, Account** p_accountList)
 {
 
-	int Accountnum;
+	char Accountnum[30];
 	char fName[30];
 	char lName[30];
 	char address[30];
 	float balance;
 	char email[30];
 	char ratings[30];
-	Account* accountlist = NULL;
+
+
 	FILE* f = fopen(filename, "r");
 
 	//printf("File open\n");
 
-
-	/*account->accountNum = 000001;
-	strcpy(account->Fname, "Ben");
-	strcpy(account->Lname, "O'Connor");
-	strcpy(account->Address, "Somewhere");
-	account->Balance = 001.00;
-	strcpy(account->Email, "Ben@gmail.com");
-	strcpy(account->rating, "Good");*/
-
-	//print_account(account);
-
 	int i = 0;
-	while (fscanf(f, "%d %s %s %s %f %s %s", &Accountnum, fName, lName, address, &balance, email, ratings) == 7) {
+	while (fscanf(f, "%s %s %s %s %f %s %s", Accountnum, fName, lName, address, &balance, email, ratings) == 7) {
 
 		Account* account = malloc(sizeof(Account));
-		account->accountNum = Accountnum;
+
+		strncpy(account->accountNum, Accountnum, 30);
 		strncpy(account->Fname, fName, 30);
 		strncpy(account->Lname, lName, 30);
 		strncpy(account->Address, address, 30);
@@ -135,30 +126,144 @@ int load_accountFile(char* filename, Account** p_accountList)
 		strncpy(account->Email, email, 30);
 		strncpy(account->rating, ratings, 30);
 
-		print_account(account);
+		account->NEXT = NULL;
 
-		addAccountItem(&accountlist, account);
+		addAccountItem(p_accountList, account);
 
 	}
 	fclose(f);
-
-	printf("Print contents of list");
-
-	//Display the list
-	Account* current = p_accountList;
-	while (current != NULL)
-	{
-		print_account(current);
-
-		current = current->NEXT;
-	}
-
 
 	//printf("file closed \n");
 
 }
 
+//find acount
+Account* find_account(Account* accountList) {
 
+	//vars
+	char accountNumber[30];
+	char accountFName[30];
+	char accountLName[30];
+	int choice = 0;
+	Account* current = accountList;
+
+	printf("Enter 1 for searching with an account number or enter 2 to search with a full name:\n");
+	scanf("%d", &choice);
+	if (choice == 1) {
+		//number search
+
+		printf("Please enter the account number\n");
+		scanf("%s", accountNumber);
+
+		//printf("TEST: %s", accountNumber);
+
+
+
+		while (current != NULL)
+		{
+
+			if (strcmp(accountNumber, current->accountNum) == 0) {
+				//printf("inside search number\n");
+				printf("Account found!\n");
+				return current;
+
+			}
+			//printf("%s\n", accountNumber);
+
+			current = current->NEXT;
+		}
+
+	}
+
+	else if (choice == 2) {
+		//name search
+
+		printf("Please enter the account holders first name:\n");
+		scanf("%s", accountFName);
+		printf("Please enter the account holders last name:\n");
+		scanf("%s", accountLName);
+
+		//printf("TEST: %s %s", accountFName, accountLName);
+
+
+
+		while (current != NULL)
+		{
+
+			if (strcmp(accountFName, current->Fname) == 0 && strcmp(accountLName, current->Lname) == 0) {
+				//printf("inside search name\n");
+				printf("Account found!\n");
+				return current;
+
+			}
+			current = current->NEXT;
+		}
+	}
+
+
+
+	return NULL;
+}
+//lodgement 
+void lodge_to_account(Account* account)
+{
+	
+	if (account == NULL)
+	{
+		return;
+	}
+
+	
+	//vars
+	float lodgement;
+	float oldBalance = account->Balance;
+	float newBalance;
+
+	printf("How much do you want to lodge:\n");
+	scanf("%f", &lodgement);
+	
+	newBalance = lodgement + oldBalance;
+	
+	printf("Your old balance was: %.2f\n", oldBalance);
+	printf("Your new balance is: %.2f\n", newBalance);
+
+	account->Balance = newBalance;
+	
+	
+	print_account(account);
+	
+	
+	
+
+}
+
+//withdraw 
+void withdraw_from_account(Account* account)
+{
+	if (account == NULL)
+	{
+		return;
+	}
+
+	//vars
+	float withdraw;
+	float oldBalance = account->Balance;
+	float newBalance;
+
+	printf("How much do you want to withdraw:\n");
+	scanf("%f", &withdraw);
+
+	newBalance = oldBalance -withdraw;
+
+	printf("Your old balance was: %.2f\n", oldBalance);
+	printf("Your new balance is: %.2f\n", newBalance);
+
+	account->Balance = newBalance;
+
+
+	print_account(account);
+
+}
 
 
 void main()
@@ -170,6 +275,7 @@ void main()
 	int i = 0;
 	Users* userList[3];
 	Account* account = malloc(sizeof(Account));
+
 	Account* accountList = NULL;
 
 	free(account);
@@ -177,7 +283,18 @@ void main()
 	//start
 
 	load_users("Users.txt", userList);
-	//load_accountFile("Accounts.txt", accountList);
+	load_accountFile("Bank.txt", &accountList);
+
+	printf("Print contents of list\n");
+
+	//Display the list - TEST
+	Account* current = accountList;
+	while (current != NULL)
+	{
+		print_account(current);
+
+		current = current->NEXT;
+	}
 
 
 	//free(user2);
@@ -185,7 +302,7 @@ void main()
 
 	int a = 1;
 
-	
+
 
 	printf("Welcome please enter username and password to log in \n");
 
@@ -245,46 +362,52 @@ void main()
 		printf("Welcome to your menu\n");
 		printf("1. add account \n2. display all accounts with a balance less than 100\n3. display account holder details\n4. make a lodgement\n5. withdraw money from account\n6. Delete\n7. genereate stats\n8. print account account holders into a report file\n or enter -1 to exit\n");
 		scanf("%d", &choice);
-				
-				
-				if (choice == 1)
-				{
 
-				}
-				else if (choice == 2)
-				{
 
-				}
-				else if (choice == 3)
-				{
-					
+		if (choice == 1)
+		{
+			//add new account
+		}
+		else if (choice == 2)
+		{
+			//display all account with balance < 100
+		}
+		else if (choice == 3)
+		{
+			//display account holder details
+			Account* account = find_account(accountList);
+			print_account(account);
+		}
+		else if (choice == 4)
+		{
+			//lodge to account
+			Account* account = find_account(accountList);
+			lodge_to_account(account);
 
-				}
-				if (choice == 4)
-				{
-
-				}
-				else if (choice == 5)
-				{
-
-				}
-				else if (choice == 6)
-				{
-
-				}
-				else if (choice == 7)
-				{
-
-				}
-				else if (choice == 8)
-				{
-
-				}
-				else if (choice == -1)//exit
-				{
-					printf("Goodbye.\n");
-					exit(0);
-				}
+		}
+		else if (choice == 5)
+		{
+			//withdraw from acccount
+			Account* account = find_account(accountList);
+			withdraw_from_account(account);
+		}
+		else if (choice == 6)
+		{
+			//delete account
+		}
+		else if (choice == 7)
+		{
+			//stats
+		}
+		else if (choice == 8)
+		{
+			//print all accounts into a report file
+		}
+		else if (choice == -1)//exit
+		{
+			printf("Goodbye.\n");
+			exit(0);
+		}
 
 	}
 
