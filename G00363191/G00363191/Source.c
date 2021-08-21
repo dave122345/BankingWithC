@@ -11,7 +11,7 @@ typedef struct {
 	char Address[30];
 	float Balance;
 	char Email[30];
-	char rating[30];
+	int rating;
 	struct Account* NEXT;
 }Account;
 
@@ -58,7 +58,7 @@ void print_account(Account* account)
 	printf("Address: %s\n", account->Address);
 	printf("Email: %s\n", account->Email);
 	printf("Balance: %.2f\n", account->Balance);
-	printf("rating: %s\n", account->rating);
+	printf("rating: %d\n", account->rating);
 
 
 	printf("\n");
@@ -106,15 +106,15 @@ int load_accountFile(char* filename, Account** p_accountList)
 	char address[30];
 	float balance;
 	char email[30];
-	char ratings[30];
+	int ratings;
 
 
 	FILE* f = fopen(filename, "r");
 
 	//printf("File open\n");
 
-	int i = 0;
-	while (fscanf(f, "%s %s %s %s %f %s %s", Accountnum, fName, lName, address, &balance, email, ratings) == 7) {
+
+	while (fscanf(f, "%s %s %s %s %f %s %d", Accountnum, fName, lName, address, &balance, email, &ratings) == 7) {
 
 		Account* account = malloc(sizeof(Account));
 
@@ -124,7 +124,7 @@ int load_accountFile(char* filename, Account** p_accountList)
 		strncpy(account->Address, address, 30);
 		account->Balance = balance;
 		strncpy(account->Email, email, 30);
-		strncpy(account->rating, ratings, 30);
+		account->rating = ratings;
 
 		account->NEXT = NULL;
 
@@ -311,7 +311,7 @@ void removeAccount(Account** first, char* accountNum)
 			return;
 		}
 
-		
+
 	} while (current->NEXT != NULL);
 }
 
@@ -329,6 +329,135 @@ void showAccounts(Account* accountList)
 
 }
 
+
+void add_account(Account** p_accountList)
+{
+	char Accountnum[30];
+	char fName[30];
+	char lName[30];
+	char address[30];
+	float balance;
+	char email[30];
+	int ratings;
+
+	printf("Please enter your Account number:\n");
+	scanf("%s", Accountnum);
+
+	printf("Please enter your First Name:\n");
+	scanf("%s", fName);
+
+	printf("Please enter your Last Name:\n");
+	scanf("%s", lName);
+
+	printf("Please enter your address (county you live in):\n");
+	scanf("%s", address);
+
+	printf("Please enter the balance in the acccount:\n");
+	scanf("%.2f", &balance);
+
+	printf("Please enter your e-mail:\n");
+	scanf("%s", email);
+
+	printf("Please enter a rating for the service of the bank (1 = excellent, 2 = very good, 3 = satisfactory, 4 = disappointing or 5 = bad):\n");
+	scanf("%d", &ratings);
+
+	Account* account = malloc(sizeof(Account));
+
+	strncpy(account->accountNum, Accountnum, 30);
+	strncpy(account->Fname, fName, 30);
+	strncpy(account->Lname, lName, 30);
+	strncpy(account->Address, address, 30);
+	account->Balance = balance;
+	strncpy(account->Email, email, 30);
+	account->rating = ratings;
+
+	account->NEXT = NULL;
+
+	addAccountItem(p_accountList, account);
+
+
+}
+
+char* stats_genarator(Account* accountList, char *stats) {
+
+	Account* current = accountList;
+	
+	float count1 = 0;
+	float count2 = 0;
+	float count3 = 0;
+	float count4 = 0;
+	float count5 = 0;
+
+
+	
+
+	while (current != NULL)
+	{
+		switch (current->rating) {
+		case 1:
+			count1++;
+			break;
+		case 2:
+			count2++;
+			break;
+		case 3:
+			count3++;
+			break;
+		case 4:
+			count4++;
+			break;
+		case 5:
+			count5++;
+			break;
+		default:
+			printf("Invalid rating detected\n");
+		}
+
+
+		current = current->NEXT;
+	}
+	float total = count1 + count2 + count3 + count4 + count5;
+
+
+	float result1 = (count1 / total) * 100;
+	float result2 = (count2 / total) * 100;
+	float result3 = (count3 / total) * 100;
+	float result4 = (count4 / total) * 100;
+	float result5 = (count5 / total) * 100;
+
+	sprintf(stats, "percentage of:\n customers for excellent review: %.2f\n customers for very good review: %.2f\n customers for satisfactory review: %.2f\n customers for disappointing review: %.2f\n customers for bad review: %.2f\n", result1, result2, result3, result4, result5);
+
+	return stats;
+
+
+}
+
+void print_report(Account* accountList) {
+	Account* current = accountList;
+	FILE* filename = "Report.txt";
+	char stats[500];
+
+	FILE* f = fopen(filename, "w+");
+
+
+	while (current != NULL)
+	{
+		//saving file
+		//fprintf(f, "%s %s %s %s %.2f %s %d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
+		fprintf(f, "%s %s %s %s %.2f %s %d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
+
+
+		current = current->NEXT;
+
+	}
+
+	//stats area
+	fprintf(f, "system generated stats are %s", stats_genarator(accountList, stats));
+
+
+
+}
+
 //saving to file
 void saveToFile(char* filename, Account* accountList)
 {
@@ -339,11 +468,11 @@ void saveToFile(char* filename, Account* accountList)
 	while (current != NULL)
 	{
 		//saving file
-		fprintf(f, "%s %s %s %s %f %s %s\n", current->accountNum, current->Fname, current->Lname, current->Address, current ->Balance, current->Email, current->rating);
+		fprintf(f, "%s %s %s %s %.2f %s %d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
 
 		current = current->NEXT;
 	}
-	
+
 	//clsoing file
 	fclose(f);
 }
@@ -353,6 +482,7 @@ void main()
 {
 	//variables
 	int choice = 0;
+	char stats[500];
 	char user_attempt[30];
 	char pass_attempt[30];
 	int i = 0;
@@ -450,6 +580,7 @@ void main()
 		if (choice == 1)
 		{
 			//add new account
+			add_account(&accountList);
 		}
 		else if (choice == 2)
 		{
@@ -486,14 +617,16 @@ void main()
 		else if (choice == 7)
 		{
 			//stats
+			printf("system generated stats are %s", stats_genarator(accountList, stats));
 		}
 		else if (choice == 8)
 		{
-			//print all accounts into a report file
+			//print all account info into a report file
+			print_report(accountList);
 		}
 		else if (choice == -1)//exit
 		{
-			
+
 			saveToFile("Bank.txt", accountList);
 
 			//clean up users
@@ -513,21 +646,9 @@ void main()
 				free(temp);
 			}
 			printf("Goodbye.\n");
-			
+
 			exit(0);
 		}
-
 	}
-
-
-
-	
-
-
 }//End of main
-
-
-
-
-
 //EOF

@@ -8,3 +8,9 @@
 008 John Burke Dublin 1040.00 john.burke@gmail.com 1 
 009 Fredrick O'Connell Mayo 780.00 fredrick.oc@gmail.com 1 
 010 Seamus Ward Clare 540.00 Seamus.ward@Gmail.com 3 
+system generated stats are percentage of:
+ customers for excellent review: 30.00
+ customers for very good review: 20.00
+ customers for satisfactory review: 30.00
+ customers for disappointing review: 10.00
+ customers for bad review: 10.00

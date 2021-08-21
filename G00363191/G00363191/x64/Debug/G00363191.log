@@ -6,9 +6,16 @@ C:\Users\David\source\repos\G00363191\G00363191\Source.c(199,27): warning C4133:
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(284,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(298,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(327,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(344,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(379,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(512,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(138): warning C4716: 'load_accountFile': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,8): warning C4476: 'scanf' : unknown type field character '.' in format specifier
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,16): warning C4474: 'scanf' : too many arguments passed for format string
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,16): message : placeholders and their parameters expect 0 variadic arguments, but 1 were provided
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(417,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(440,26): warning C4133: 'function': incompatible types - from 'FILE *' to 'const char *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(450,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(437,1): warning C4133: 'initializing': incompatible types - from 'char [11]' to 'FILE *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(473,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(509,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(645,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(97): warning C4716: 'load_users': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(138): warning C4716: 'load_accountFile': must return a value
   G00363191.vcxproj -> C:\Users\David\source\repos\G00363191\x64\Debug\G00363191.exe
