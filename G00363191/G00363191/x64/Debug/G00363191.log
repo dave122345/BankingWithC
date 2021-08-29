@@ -1,21 +1,20 @@
 ﻿  Source.c
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(37,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(40,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(173,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(199,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(284,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(298,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(327,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,8): warning C4476: 'scanf' : unknown type field character '.' in format specifier
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,16): warning C4474: 'scanf' : too many arguments passed for format string
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(356,16): message : placeholders and their parameters expect 0 variadic arguments, but 1 were provided
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(417,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(440,26): warning C4133: 'function': incompatible types - from 'FILE *' to 'const char *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(450,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(437,1): warning C4133: 'initializing': incompatible types - from 'char [11]' to 'FILE *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(473,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(509,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(645,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(97): warning C4716: 'load_users': must return a value
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(138): warning C4716: 'load_accountFile': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(38,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(41,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(174,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(200,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(285,25): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(299,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(330,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(370,27): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(392,32): warning C4013: 'email_validation' undefined; assuming extern returning int
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(430,28): warning C4267: '=': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(503,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(529,26): warning C4133: 'function': incompatible types - from 'FILE *' to 'const char *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(539,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(525,1): warning C4133: 'initializing': incompatible types - from 'char [11]' to 'FILE *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(562,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(770,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(98): warning C4716: 'load_users': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(139): warning C4716: 'load_accountFile': must return a value
   G00363191.vcxproj -> C:\Users\David\source\repos\G00363191\x64\Debug\G00363191.exe

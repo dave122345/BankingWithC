@@ -1,10 +1,10 @@
-001 David Burke Dublin 1000.00 david.burke@gmail.com 3 
-002 John Smyth Mayo 500.00 john.s@gmail.com 1 
-003 Dave Ward Galway 500.00 dave.ward@aol.com 2 
+001 David Burke Dublin 100.00 david.burke@gmail.com 3 
+002 John Smyth Mayo 250.00 john.s@gmail.com 1 
+003 Dave Ward Galway 50.00 dave.ward@aol.com 2 
 004 John Nolan Cork 1000.00 john.n@gmail.com 4 
 005 Rory Smyth Belfast 500.00 rory.smyth@gmail.com 5 
 006 Jack O'Connor Castlebar 500.00 jack.oc@yahoo.com 2 
 007 Sean Burke Dublin 1700.00 sean.burke@gmail.com 3 
 008 John Burke Dublin 1040.00 john.burke@gmail.com 1 
 009 Fredrick O'Connell Mayo 780.00 fredrick.oc@gmail.com 1 
-010 Seamus Ward Clare 540.00 Seamus.ward@Gmail.com 3 
+010 Seamus Ward Clare 300.00 Seamus.ward@Gmail.com 3 

@@ -13,14 +13,15 @@ typedef struct {
 	char Email[30];
 	int rating;
 	struct Account* NEXT;
-}Account;
+}Account;//account struct
 
 typedef struct {
 
 	char Username[30];
 	char Password[30];
 
-}Users;
+}Users;//user struct
+
 
 void addAccountItem(Account** first, Account* account)
 {
@@ -44,7 +45,7 @@ void addAccountItem(Account** first, Account* account)
 
 
 
-//defines and functions here
+//printing a specified account
 void print_account(Account* account)
 {
 	if (account == NULL)
@@ -65,7 +66,7 @@ void print_account(Account* account)
 
 }
 
-
+//loading users
 int load_users(char* filename, Users** p_userList)
 {
 
@@ -85,7 +86,7 @@ int load_users(char* filename, Users** p_userList)
 		Users* users = malloc(sizeof(Users));
 		strncpy(users->Username, username, 30);
 		strncpy(users->Password, password, 30);
-		printf("%s %s\n", users->Username, users->Password);
+		//printf("%s %s\n", users->Username, users->Password);
 
 		p_userList[i] = users;
 		i++;
@@ -96,7 +97,7 @@ int load_users(char* filename, Users** p_userList)
 
 }
 
-
+//loading the Bank file
 int load_accountFile(char* filename, Account** p_accountList)
 {
 
@@ -137,7 +138,7 @@ int load_accountFile(char* filename, Account** p_accountList)
 
 }
 
-//find account
+//find account in the system
 Account* find_account(Account* accountList) {
 
 	//vars
@@ -204,7 +205,7 @@ Account* find_account(Account* accountList) {
 
 	return NULL;
 }
-//lodgement 
+//lodgement to an account
 void lodge_to_account(Account* account)
 {
 
@@ -230,14 +231,14 @@ void lodge_to_account(Account* account)
 	account->Balance = newBalance;
 
 
-	print_account(account);
+	print_account(account); //print account to show new balanvce
 
 
 
 
 }
 
-//withdraw 
+//withdraw from an account
 void withdraw_from_account(Account* account)
 {
 	if (account == NULL)
@@ -261,11 +262,11 @@ void withdraw_from_account(Account* account)
 	account->Balance = newBalance;
 
 
-	print_account(account);
+	print_account(account); //printing account to show new balance
 
 }
 
-//delete function
+//deleting an account from the system
 void removeAccount(Account** first, char* accountNum)
 {
 	if (*first == NULL)
@@ -302,7 +303,7 @@ void removeAccount(Account** first, char* accountNum)
 		{
 			printf("Found account %s\n", accountNum);
 			// Stitch previous and next elements together
-			// Note: This also works if current is the last element
+			//also works if current is the last element
 
 			prev->NEXT = current->NEXT;
 
@@ -315,23 +316,26 @@ void removeAccount(Account** first, char* accountNum)
 	} while (current->NEXT != NULL);
 }
 
-//showing accounts
+//showing accounts <100 balance
 void showAccounts(Account* accountList)
 {
 	Account* current = accountList;
 
 	while (current != NULL)
 	{
-		print_account(current);
+		if (current->Balance <= 100) {
+			print_account(current);//prints account(s) when the balance is less than 100
+		}
 
-		current = current->NEXT;
+		current = current->NEXT; //going through the list
 	}
 
 }
 
-
+//adding accounts to the system
 void add_account(Account** p_accountList)
 {
+	//vars
 	char Accountnum[30];
 	char fName[30];
 	char lName[30];
@@ -339,9 +343,35 @@ void add_account(Account** p_accountList)
 	float balance;
 	char email[30];
 	int ratings;
+	int acccNumCheck = 0;
+	int emailCheck = 0;
+	Account* current = *p_accountList;
 
-	printf("Please enter your Account number:\n");
-	scanf("%s", Accountnum);
+
+	while (acccNumCheck == 0) {
+
+		acccNumCheck = 1; //passes check if number is unique
+
+
+		//stuff needed to be filled in to make an account
+		printf("Please enter your Account number:\n");
+		scanf("%s", Accountnum);
+
+		//check to see if the number is unique
+		while (current != NULL)
+		{
+
+			if (strcmp(Accountnum, current->accountNum) == 0) {
+
+				printf("Account number must be unique!\n");
+				acccNumCheck = 0;
+
+			}
+			current = current->NEXT;
+		}
+
+
+	}
 
 	printf("Please enter your First Name:\n");
 	scanf("%s", fName);
@@ -353,10 +383,15 @@ void add_account(Account** p_accountList)
 	scanf("%s", address);
 
 	printf("Please enter the balance in the acccount:\n");
-	scanf("%.2f", &balance);
+	scanf("%f", &balance);
 
-	printf("Please enter your e-mail:\n");
-	scanf("%s", email);
+	while (emailCheck == 0) {
+		printf("Please enter your e-mail:\n");
+		scanf("%s", email);
+
+		emailCheck = email_validation(email);
+
+	}
 
 	printf("Please enter a rating for the service of the bank (1 = excellent, 2 = very good, 3 = satisfactory, 4 = disappointing or 5 = bad):\n");
 	scanf("%d", &ratings);
@@ -378,10 +413,61 @@ void add_account(Account** p_accountList)
 
 }
 
-char* stats_genarator(Account* accountList, char *stats) {
+//email checker
+int email_validation(char* email) {
+
+	int i = 0;
+	int atValid = 0;
+	int comValid = 0;
+	int stringSize;
+	char com[5];
+
+
+
+
+	strcpy(com, ".com");
+
+	stringSize = strlen(email);
+
+
+
+	while (i <= stringSize) {
+
+		if (email[i] == '@') {
+
+			atValid = 1;
+			break;
+
+		}
+		i++;
+	}
+
+	if (atValid == 0) {
+		printf("No @ found in address email adress is not valid.");
+		return 0;
+	}
+
+
+	int domain = stringSize - 4;
+
+	email += domain;
+
+	if (strcmp(email, com) == 0) {
+		return 1;
+	}
+
+	else {
+		printf("No .com found. email adress is not valid.");
+		return 0;
+	}
+
+}
+
+//stats generator
+char* stats_genarator(Account* accountList, char* stats) {
 
 	Account* current = accountList;
-	
+
 	float count1 = 0;
 	float count2 = 0;
 	float count3 = 0;
@@ -389,8 +475,8 @@ char* stats_genarator(Account* accountList, char *stats) {
 	float count5 = 0;
 
 
-	
 
+	//conditons 
 	while (current != NULL)
 	{
 		switch (current->rating) {
@@ -418,13 +504,14 @@ char* stats_genarator(Account* accountList, char *stats) {
 	}
 	float total = count1 + count2 + count3 + count4 + count5;
 
-
+	//maths
 	float result1 = (count1 / total) * 100;
 	float result2 = (count2 / total) * 100;
 	float result3 = (count3 / total) * 100;
 	float result4 = (count4 / total) * 100;
 	float result5 = (count5 / total) * 100;
 
+	//file saving
 	sprintf(stats, "percentage of:\n customers for excellent review: %.2f\n customers for very good review: %.2f\n customers for satisfactory review: %.2f\n customers for disappointing review: %.2f\n customers for bad review: %.2f\n", result1, result2, result3, result4, result5);
 
 	return stats;
@@ -432,19 +519,21 @@ char* stats_genarator(Account* accountList, char *stats) {
 
 }
 
+//printing report file
 void print_report(Account* accountList) {
 	Account* current = accountList;
 	FILE* filename = "Report.txt";
 	char stats[500];
 
+	//open file
 	FILE* f = fopen(filename, "w+");
 
-
+	fprintf(f, "%8s %30s %30s %30s %12s %25s      %s \n", "acc Num", "First name", "Last name", "Address", "Balance", "Email", "rating");
 	while (current != NULL)
 	{
 		//saving file
-		//fprintf(f, "%s %s %s %s %.2f %s %d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
-		fprintf(f, "%s %s %s %s %.2f %s %d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
+
+		fprintf(f, "%8s %30s %30s %30s %12.2f %30s %5d \n", current->accountNum, current->Fname, current->Lname, current->Address, current->Balance, current->Email, current->rating);
 
 
 		current = current->NEXT;
@@ -452,9 +541,9 @@ void print_report(Account* accountList) {
 	}
 
 	//stats area
-	fprintf(f, "system generated stats are %s", stats_genarator(accountList, stats));
+	fprintf(f, "system generated stats are %s" + '%', stats_genarator(accountList, stats));
 
-
+	fclose(f);
 
 }
 
@@ -482,10 +571,12 @@ void main()
 {
 	//variables
 	int choice = 0;
+	char ch = '0';
 	char stats[500];
 	char user_attempt[30];
 	char pass_attempt[30];
 	int i = 0;
+	int p = 0;
 	Users* userList[3];
 	Account* account = malloc(sizeof(Account));
 
@@ -498,16 +589,17 @@ void main()
 	load_users("Users.txt", userList);
 	load_accountFile("Bank.txt", &accountList);
 
-	printf("Print contents of list\n");
+	//printf("Print contents of list\n");
 
-	//Display the list - TEST
+	/*//Display the list - TEST
 	Account* current = accountList;
 	while (current != NULL)
 	{
 		print_account(current);
 
 		current = current->NEXT;
-	}
+	}*/
+
 
 
 	//free(user2);
@@ -537,9 +629,37 @@ void main()
 				printf("user found!\n");
 				u = 1;
 				//ask for Password
+				p = 0;
+				printf("Please enter your Password (backspace does not remove *):\n");
+				//scanf("%s", pass_attempt);
 
-				printf("Please enter your Password:\n");
-				scanf("%s", pass_attempt);
+				//hiding password 
+				while (ch != 13)
+
+				{
+					ch = getch();
+					//printf("%c", getch());
+
+					if (ch != 8 && ch != 13) {
+
+						pass_attempt[p] = ch;
+						p++;
+						printf("*");
+						//printf("%c %d \n", ch, ch);
+
+					}
+					else if (ch == 8 && p > 0) {
+
+						p--;
+
+					}
+
+				}//while
+
+				pass_attempt[p] = '\0';
+			//printf("%s \n", pass_attempt);
+
+
 
 				if (strcmp(pass_attempt, userList[i]->Password) == 0) {
 
@@ -572,9 +692,14 @@ void main()
 
 	//menu
 	while (choice != -1) {
+
+		printf("\n");
+		printf("=======================\n");
 		printf("Welcome to your menu\n");
 		printf("1. add account \n2. display all accounts with a balance less than 100\n3. display account holder details\n4. make a lodgement\n5. withdraw money from account\n6. Delete\n7. genereate stats\n8. print account account holders into a report file\n or enter -1 to exit\n");
+		printf("=======================\n");
 		scanf("%d", &choice);
+
 
 
 		if (choice == 1)
@@ -622,6 +747,7 @@ void main()
 		else if (choice == 8)
 		{
 			//print all account info into a report file
+			printf("Printing report file\n");
 			print_report(accountList);
 		}
 		else if (choice == -1)//exit
