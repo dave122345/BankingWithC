@@ -14,7 +14,7 @@ C:\Users\David\source\repos\G00363191\G00363191\Source.c(529,26): warning C4133:
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(539,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(525,1): warning C4133: 'initializing': incompatible types - from 'char [11]' to 'FILE *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(562,26): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(770,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
-C:\Users\David\source\repos\G00363191\G00363191\Source.c(98): warning C4716: 'load_users': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(771,28): warning C4133: '=': incompatible types - from 'Account *' to 'Account *'
 C:\Users\David\source\repos\G00363191\G00363191\Source.c(139): warning C4716: 'load_accountFile': must return a value
+C:\Users\David\source\repos\G00363191\G00363191\Source.c(98): warning C4716: 'load_users': must return a value
   G00363191.vcxproj -> C:\Users\David\source\repos\G00363191\x64\Debug\G00363191.exe

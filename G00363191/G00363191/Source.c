@@ -280,7 +280,7 @@ void removeAccount(Account** first, char* accountNum)
 
 	if (strcmp(current->accountNum, accountNum) == 0)
 	{
-		printf("Found account (first element)\n");
+		printf("Found account and deleted account\n");
 		// Remove first element - set *first to next (second) node
 		*first = current->NEXT;
 
@@ -657,7 +657,7 @@ void main()
 				}//while
 
 				pass_attempt[p] = '\0';
-			//printf("%s \n", pass_attempt);
+				//printf("%s \n", pass_attempt);
 
 
 

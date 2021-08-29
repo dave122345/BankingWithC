@@ -1,4 +1,3 @@
-001 David Burke Dublin 100.00 david.burke@gmail.com 3 
 002 John Smyth Mayo 250.00 john.s@gmail.com 1 
 003 Dave Ward Galway 50.00 dave.ward@aol.com 2 
 004 John Nolan Cork 1000.00 john.n@gmail.com 4 
